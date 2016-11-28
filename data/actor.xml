@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actors>
+    <actor birthdate="1924-04-03" firstname="Marlon" lastname="Brando" sex="M"/>
+    <actor birthdate="1952-06-07" firstname="Liam" lastname="Neeson" sex="M"/>
+    <actor birthdate="1915-08-29" firstname="Ingrid" lastname="Bergman" sex="F"/>
+    <actor birthdate="1889-11-10" firstname="Claude" lastname="Rains" sex="M"/>
+</actors>
