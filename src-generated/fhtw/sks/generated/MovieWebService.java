@@ -27,25 +27,25 @@ public interface MovieWebService {
     /**
      * 
      * @return
-     *     returns fhtw.sks.generated.MovieRootElement
+     *     returns java.util.List<fhtw.sks.generated.Movie>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getAllMovies", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.GetAllMovies")
     @ResponseWrapper(localName = "getAllMoviesResponse", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.GetAllMoviesResponse")
-    public MovieRootElement getAllMovies();
+    public List<Movie> getAllMovies();
 
     /**
      * 
      * @param arg0
      * @return
-     *     returns fhtw.sks.generated.MovieRootElement
+     *     returns java.util.List<fhtw.sks.generated.Movie>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getMoviesContains", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.GetMoviesContains")
     @ResponseWrapper(localName = "getMoviesContainsResponse", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.GetMoviesContainsResponse")
-    public MovieRootElement getMoviesContains(
+    public List<Movie> getMoviesContains(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0);
 
@@ -59,19 +59,5 @@ public interface MovieWebService {
     public void persistMovies(
         @WebParam(name = "arg0", targetNamespace = "")
         List<Movie> arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @throws Exception_Exception
-     */
-    @WebMethod
-    @RequestWrapper(localName = "persistMoviesFromSoap", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.PersistMoviesFromSoap")
-    @ResponseWrapper(localName = "persistMoviesFromSoapResponse", targetNamespace = "http://soap.services.technikumwien.at/", className = "fhtw.sks.generated.PersistMoviesFromSoapResponse")
-    public void persistMoviesFromSoap(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0)
-        throws Exception_Exception
-    ;
 
 }

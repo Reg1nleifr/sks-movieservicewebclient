@@ -1,4 +1,4 @@
-package fhtw.technikumwien.sks;
+package fhtw.technikumwien.sks.helpers;
 
 import fhtw.sks.generated.Studio;
 
@@ -17,6 +17,7 @@ public class StudioRootElement {
     public StudioRootElement() {
     }
 
+    @XmlElement(name="studio")
     public List<Studio> getStudios() {
         return studios;
     }

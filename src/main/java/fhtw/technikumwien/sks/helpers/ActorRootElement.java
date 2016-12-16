@@ -1,4 +1,4 @@
-package fhtw.technikumwien.sks;
+package fhtw.technikumwien.sks.helpers;
 
 import fhtw.sks.generated.Actor;
 
@@ -17,6 +17,7 @@ public class ActorRootElement {
     public ActorRootElement() {
     }
 
+    @XmlElement(name="actor")
     public List<Actor> getActors() {
         return actors;
     }

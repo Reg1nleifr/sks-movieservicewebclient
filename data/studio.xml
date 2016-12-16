@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<studios>
+<movies>
     <studio countrycode="NY" name="RKO Pictures" postcode="10020"/>
     <studio countrycode="CA" name="Paramount Picture"/>
     <studio countrycode="CA" name="Warner Bros."/>
     <studio countrycode="BH" name="Metro-Goldwyn-Mayer"/>
-</studios>
+</movies>
