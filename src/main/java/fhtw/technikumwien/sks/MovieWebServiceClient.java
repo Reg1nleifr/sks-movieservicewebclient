@@ -3,16 +3,13 @@ package fhtw.technikumwien.sks;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.media.jfxmedia.logging.Logger;
 import fhtw.sks.generated.*;
 import fhtw.technikumwien.sks.helpers.MovieRootElement;
 import fhtw.technikumwien.sks.security.MovieServiceAuthenticator;
-import fhtw.technikumwien.sks.security.RequestFilter;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.ws.WebServiceException;
@@ -26,16 +23,20 @@ import java.lang.Exception;
  */
 public class MovieWebServiceClient {
 
+    private static String username = "myuser";
+    private static String password = "topsecret";
+
     public static void main(String[] args) throws Exception {
+        System.setProperty( "com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize", "true");
 
         MovieWebService port = null;
         String option;
         Client client = Client.create();
         WebResource webResource = client
                 .resource("http://localhost:8080/MovieServiceWebApp/resources/");
-                //.addFilter(new RequestFilter("myuser", "topsecret"));
 
-
+        MovieServiceAuthenticator.setAsDefault(username,password);
+        webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
 
         try {
             MovieService service = new MovieService();
@@ -69,11 +70,7 @@ public class MovieWebServiceClient {
             }
 
             if(option.matches("a")) {
-                try {
-                    movieImporterOption(port, brufferedReader);
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
+                movieImporterOption(port, brufferedReader);
             }
             if(option.matches("b")) {
                 studioImporterOption(webResource, brufferedReader);
@@ -100,8 +97,6 @@ public class MovieWebServiceClient {
             System.err.println("xml doesn't exist!");
             return;
         }
-
-        MovieServiceAuthenticator.setAsDefault("myuser","topsecret");
 
         MovieRootElement movieRootElement = unmarshallMovieRootElement(new StreamSource(inputFile));
         port.persistMovies(movieRootElement.getMovies());
