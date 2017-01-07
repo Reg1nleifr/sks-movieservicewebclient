@@ -47,9 +47,11 @@ public class MovieWebServiceClient {
         WebResource webResource = client
                 .resource("http://localhost:8080/MovieServiceWebApp/resources/");
 
-        webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
+        // Filter is not needed, jersey client is using the MovieServiceAuthenticator (demonstrate if needed)
+        //webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
 
         mainClientLoop(port, webResource);
+
     }
 
     private static void mainClientLoop(MovieWebService port, WebResource webResource) throws Exception{
