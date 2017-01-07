@@ -73,10 +73,10 @@ public class MovieWebServiceClient {
         } while (!option.equals("q"));
     }
 
-    private static void movieImporterOption(MovieWebService port, BufferedReader brufferedReader) throws Exception {
+    private static void movieImporterOption(MovieWebService port, BufferedReader bufferedReader) throws Exception {
         GuiHelper.getMovieImporter();
 
-        String path = brufferedReader.readLine();
+        String path = bufferedReader.readLine();
         File inputFile = new File(path);
 
         Logger.logMsg(Logger.INFO, inputFile.getAbsolutePath());
@@ -148,6 +148,7 @@ public class MovieWebServiceClient {
                 .type("application/json")
                 .accept("text/plain")
                 .post(ClientResponse.class, inputFile);
+
         System.out.println(response.getStatus());
     }
 
