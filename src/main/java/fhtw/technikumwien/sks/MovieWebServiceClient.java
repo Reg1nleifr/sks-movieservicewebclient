@@ -1,11 +1,11 @@
 package fhtw.technikumwien.sks;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.media.jfxmedia.logging.Logger;
 import fhtw.sks.generated.*;
+import fhtw.technikumwien.sks.helpers.GuiHelper;
 import fhtw.technikumwien.sks.helpers.MovieRootElement;
 import fhtw.technikumwien.sks.security.MovieServiceAuthenticator;
 
@@ -30,7 +30,7 @@ public class MovieWebServiceClient {
         System.setProperty( "com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize", "true");
 
         MovieWebService port = null;
-        String option;
+
         Client client = Client.create();
         WebResource webResource = client
                 .resource("http://localhost:8080/MovieServiceWebApp/resources/");
@@ -47,46 +47,34 @@ public class MovieWebServiceClient {
             System.exit(1);
         }
 
-        BufferedReader brufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        mainClientLoop(port, webResource);
+    }
+
+    private static void mainClientLoop(MovieWebService port, WebResource webResource) throws Exception{
+        String option;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         do {
-
-            System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
-            System.out.println("ǁ                   Movie Service Console Client                    ǁ");
-            System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-            System.out.println("ǁ    Choose target Action                                           ǁ");
-            System.out.println("ǁ        a.) Import Movies                                          ǁ");
-            System.out.println("ǁ        b.) Create Studios                                         ǁ");
-            System.out.println("ǁ        c.) Create Actors                                          ǁ");
-            System.out.println("ǁ        q.) Quit                                                   ǁ");
-            System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
-
-
-            option = brufferedReader.readLine().toLowerCase();
-
+            GuiHelper.getHomeScreen();
+            option = bufferedReader.readLine().toLowerCase();
             while(!option.matches("[a-c|q]")) {
                 System.err.println("Wrong input, try again");
-                option = brufferedReader.readLine().toLowerCase();
+                option = bufferedReader.readLine().toLowerCase();
             }
-
             if(option.matches("a")) {
-                movieImporterOption(port, brufferedReader);
+                movieImporterOption(port, bufferedReader);
             }
             if(option.matches("b")) {
-                studioImporterOption(webResource, brufferedReader);
+                studioImporterOption(webResource, bufferedReader);
             }
             if(option.matches("c")) {
-                actorImporterOption(webResource, brufferedReader);
+                actorImporterOption(webResource, bufferedReader);
             }
         } while (!option.equals("q"));
     }
 
     private static void movieImporterOption(MovieWebService port, BufferedReader brufferedReader) throws Exception {
-        System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
-        System.out.println("ǁ                          Movie Importer                           ǁ");
-        System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                         ǁ");
-        System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
+        GuiHelper.getMovieImporter();
 
         String path = brufferedReader.readLine();
         File inputFile = new File(path);
@@ -104,14 +92,10 @@ public class MovieWebServiceClient {
         System.out.println(String.format("%d movies added!", movieRootElement.getMovies().size()));
     }
 
-    private static void studioImporterOption(WebResource webResource, BufferedReader brufferedReader) throws Exception{
-        System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
-        System.out.println("ǁ                         Studio Importer                           ǁ");
-        System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                         ǁ");
-        System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
+    private static void studioImporterOption(WebResource webResource, BufferedReader bufferedReader) throws Exception{
+        GuiHelper.getStudioImporter();
 
-        String path = brufferedReader.readLine();
+        String path = bufferedReader.readLine();
         File inputFile = new File(path);
         Logger.logMsg(Logger.INFO, inputFile.getAbsolutePath());
 
@@ -147,11 +131,7 @@ public class MovieWebServiceClient {
 
 
     private static void actorImporterOption(WebResource webResource, BufferedReader brufferedReader) throws Exception{
-        System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
-        System.out.println("ǁ                          Actor Importer                           ǁ");
-        System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                         ǁ");
-        System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
+        GuiHelper.getActorImporter();
 
         String path = brufferedReader.readLine();
         File inputFile = new File(path);
