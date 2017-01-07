@@ -25,7 +25,7 @@ public class GuiHelper {
         System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
         System.out.println("ǁ                          Movie Importer                                                                            ǁ");
         System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                                                                          ǁ");
+        System.out.println("ǁ                         Specify File Path (xml)                                                                    ǁ");
         System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
     }
 
@@ -33,7 +33,7 @@ public class GuiHelper {
         System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
         System.out.println("ǁ                         Studio Importer                                                                            ǁ");
         System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                                                                          ǁ");
+        System.out.println("ǁ                         Specify File Path (json)                                                                   ǁ");
         System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
     }
 
@@ -41,7 +41,7 @@ public class GuiHelper {
         System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
         System.out.println("ǁ                          Actor Importer                                                                            ǁ");
         System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
-        System.out.println("ǁ                         Specify File Path                                                                          ǁ");
+        System.out.println("ǁ                         Specify File Path (json)                                                                   ǁ");
         System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
     }
 

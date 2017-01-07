@@ -17,35 +17,37 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.Exception;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 
 /**
  * Created by Flo on 31/10/2016.
  */
 public class MovieWebServiceClient {
 
-    private static String username = "myuser";
-    private static String password = "topsecret";
+    private static String username = "writer";
+    private static String password = "123";
 
     public static void main(String[] args) throws Exception {
         System.setProperty( "com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize", "true");
+        MovieServiceAuthenticator.setAsDefault(username, password);
 
         MovieWebService port = null;
-
-        Client client = Client.create();
-        WebResource webResource = client
-                .resource("http://localhost:8080/MovieServiceWebApp/resources/");
-
-        MovieServiceAuthenticator.setAsDefault(username,password);
-        webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
 
         try {
             MovieService service = new MovieService();
             port = service.getMovieServicePort();
         } catch (WebServiceException e) {
             System.err.println("Failed to access the WSDL at: http://localhost:8080/MovieServiceWebApp/MovieService?wsdl.");
-            System.err.println("Connection refused, check if the Service is running.");
+            System.err.println("Connection refused, check if the Service is running or if Credentials are correct.");
             System.exit(1);
         }
+
+        Client client = Client.create();
+        WebResource webResource = client
+                .resource("http://localhost:8080/MovieServiceWebApp/resources/");
+
+        webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
 
         mainClientLoop(port, webResource);
     }
@@ -100,7 +102,7 @@ public class MovieWebServiceClient {
         Logger.logMsg(Logger.INFO, inputFile.getAbsolutePath());
 
         if(!inputFile.exists()) {
-            System.err.println("xml doesn't exist!");
+            System.err.println("json doesn't exist!");
             return;
         }
 
@@ -111,24 +113,8 @@ public class MovieWebServiceClient {
                 .accept("text/plain")
                 .post(ClientResponse.class, inputFile);
 
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus() + " " + response.getStatusInfo().toString());
     }
-
-//
-//    ClientResponse response = webResource
-//            .path("movies")
-//            .path("1")
-//            .accept("application/json")
-//            .get(ClientResponse.class);
-//
-//        if (response.getStatus() != 200) {
-//        throw new RuntimeException("Failed : HTTP error code : "
-//                + response.getStatus());
-//    }
-//
-//    Studio studio = response.getEntity(Studio.class);
-//        System.out.println(studio);
-
 
     private static void actorImporterOption(WebResource webResource, BufferedReader brufferedReader) throws Exception{
         GuiHelper.getActorImporter();
@@ -138,7 +124,7 @@ public class MovieWebServiceClient {
         Logger.logMsg(Logger.INFO, inputFile.getAbsolutePath());
 
         if(!inputFile.exists()) {
-            System.err.println("xml doesn't exist!");
+            System.err.println("json doesn't exist!");
             return;
         }
 
@@ -149,7 +135,7 @@ public class MovieWebServiceClient {
                 .accept("text/plain")
                 .post(ClientResponse.class, inputFile);
 
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus() + " " + response.getStatusInfo().toString());
     }
 
     private static MovieRootElement unmarshallMovieRootElement(Source source) throws JAXBException {
@@ -158,19 +144,4 @@ public class MovieWebServiceClient {
         JAXBElement<MovieRootElement> jaxbElement = unmarshaller.unmarshal(source, MovieRootElement.class);
         return jaxbElement.getValue();
     }
-
-//    private static ActorRootElement unmarshallActorRootElement(Source source) throws JAXBException {
-//        JAXBContext jaxbContext = JAXBContext.newInstance(ActorRootElement.class);
-//        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-//        JAXBElement<ActorRootElement> jaxbElement = unmarshaller.unmarshal(source, ActorRootElement.class);
-//        return jaxbElement.getValue();
-//    }
-
-//    private static StudioRootElement unmarshallStudioRootElement(Source source) throws JAXBException {
-//        JAXBContext jaxbContext = JAXBContext.newInstance(StudioRootElement.class);
-//        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-//        JAXBElement<StudioRootElement> jaxbElement = unmarshaller.unmarshal(source, StudioRootElement.class);
-//        return jaxbElement.getValue();
-//    }
-
 }
