@@ -1,7 +1,7 @@
 package fhtw.technikumwien.sks.helpers;
 
 /**
- * Created by Stefan on 07.01.2017.
+ * Created by Flo & Stefan
  */
 public class GuiHelper {
 

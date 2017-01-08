@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * Created by Flo on 15/12/2016.
+ * Created by Flo & Stefan
  */
 @XmlRootElement(name="movies")
 public class MovieRootElement {

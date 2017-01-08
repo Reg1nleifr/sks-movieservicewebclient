@@ -21,12 +21,13 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
 /**
- * Created by Flo on 31/10/2016.
+ * Created by Flo & Stefan
  */
 public class MovieWebServiceClient {
 
     private static String username = "writer";
     private static String password = "123";
+    private static String Url = "http://localhost:8080/MovieServiceWebApp/resources/";
 
     public static void main(String[] args) throws Exception {
         System.setProperty( "com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize", "true");
@@ -45,7 +46,7 @@ public class MovieWebServiceClient {
 
         Client client = Client.create();
         WebResource webResource = client
-                .resource("http://localhost:8080/MovieServiceWebApp/resources/");
+                .resource(Url);
 
         // Filter is not needed, jersey client is using the MovieServiceAuthenticator (demonstrate if needed)
         //webResource.addFilter((new HTTPBasicAuthFilter(username, password)));
@@ -110,7 +111,6 @@ public class MovieWebServiceClient {
 
         ClientResponse response = webResource
                 .path("studios")
-                .path("create")
                 .type("application/json")
                 .accept("text/plain")
                 .post(ClientResponse.class, inputFile);
@@ -132,7 +132,6 @@ public class MovieWebServiceClient {
 
         ClientResponse response = webResource
                 .path("actors")
-                .path("create")
                 .type("application/json")
                 .accept("text/plain")
                 .post(ClientResponse.class, inputFile);

@@ -4,7 +4,7 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
 /**
- * Created by Flo on 15/12/2016.
+ * Created by Flo & Stefan
  */
 
 public class MovieServiceAuthenticator extends Authenticator{
